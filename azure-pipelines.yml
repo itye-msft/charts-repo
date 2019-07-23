@@ -1,7 +1,6 @@
 variables:
   CONTAINER: 'https://ityeblob.blob.core.windows.net/repo'
   CHARTNAME: 'presidio'
-  SASTOKEN: 'se=2030-01-01&sp=rwl&sv=2018-03-28&sr=c&sig=Df6dFZbB77lSDVaNo8qcCrvhGWa6s1SepSl5f54WBs8%3D'
 
 trigger:
 - master
