@@ -1,6 +1,7 @@
 variables:
   CONTAINER: 'https://ityeblob.blob.core.windows.net/repo'
   CHARTNAME: 'presidio'
+  #SASTOKEN: '<token>'
 
 trigger:
 - master
