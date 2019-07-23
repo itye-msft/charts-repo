@@ -1,7 +1,7 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+variables:
+  CONTAINER: 'https://ityeblob.blob.core.windows.net/repo'
+  CHARTNAME: 'presidio'
+  SASTOKEN: 'se=2030-01-01&sp=rwl&sv=2018-03-28&sr=c&sig=Df6dFZbB77lSDVaNo8qcCrvhGWa6s1SepSl5f54WBs8%3D'
 
 trigger:
 - master
@@ -10,10 +10,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: HelmInstaller@0
+  displayName: 'Install Helm 2.9.1'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- bash: |
+   cd charts
+   curl $CONTAINER/index.yaml > index.yaml
+   helm package $CHARTNAME
+   helm repo index --merge index.yaml .
+   TAR=$(ls *tgz)
+   
+   curl -X PUT -T ./$TAR -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "$CONTAINER/$TAR?$SASTOKEN"
+   
+   curl -X PUT -T ./index.yaml -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "$CONTAINER/index.yaml?$SASTOKEN"
+  displayName: 'Bash Script'
