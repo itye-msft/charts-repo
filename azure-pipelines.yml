@@ -1,4 +1,4 @@
-variables:
+#variables:
   #CONTAINER: 'https://<account>.blob.core.windows.net/<container>'
   #CHARTNAME: '<name>'
   #SASTOKEN: '<token>'
