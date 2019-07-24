@@ -65,4 +65,7 @@ Every time a new verion is deployed, to any repo, including the public repo, you
 
 And now you can search and install charts:
 
-`helm search <chart-name>`
+```bash
+helm repo list
+helm search <chart-name>
+```
