@@ -6,6 +6,10 @@
 trigger:
 - master
 
+paths:
+    include: 
+      - charts/*
+
 pool:
   vmImage: 'ubuntu-latest'
 
