@@ -69,3 +69,18 @@ And now you can search and install charts:
 helm repo list
 helm search <chart-name>
 ```
+
+## Kubeapps support
+[Kubeapps](https://github.com/kubeapps/kubeapps) is a web-based UI for deploying and managing applications in Kubernetes clusters. Among other cool stuff, Kubeapps allows you to browse and deploy Helm charts from custom chart repositories -  such as the one we created here.
+
+You can easily deploy Kubeapps to your cluster using the following ocmmand:
+```bash
+$ cat > custom-values.yaml <<EOF
+apprepository:
+  initialRepos:
+  - name: my-repo
+    url: https://<storgae-account>.blob.core.windows.net/<container-name>/
+EOF
+$ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps -f custom-values.yaml
+```
+For more information visit [Kubeapps getting started page](https://github.com/kubeapps/kubeapps/tree/master/chart/kubeapps)
